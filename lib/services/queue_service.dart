@@ -1150,9 +1150,6 @@ class QueueService {
       }
     }
 
-    // final metadata = await GetIt.instance<ProviderContainer>().read(metadataProvider(item).future);
-    // print("BEFORE MEDIAITEM: playSessionId=${metadata?.playbackInfo.playSessionId}");
-
     return MediaItem(
       id: itemId?.toString() ?? uuid.v4(),
       playable:
@@ -1162,8 +1159,8 @@ class QueueService {
       artUri: artUri,
       title: item.name ?? "unknown",
       extras: {
-        "playSessionId": uuid
-            .v4(), //!!! this ID has to be consistent across the transcoding URL and the playback reporting status, otherwise the server won't show that we're transcoding
+        //!!! this ID has to be consistent across the transcoding URL and the playback reporting status, otherwise the server won't show that we're transcoding
+        "playSessionId": uuid.v4(),
         "itemJson": item.toJson(setOffline: false),
         "shouldTranscode": FinampSettingsHelper.finampSettings.shouldTranscode,
         "downloadedTrackPath": downloadedTrack?.file?.path,
@@ -1190,7 +1187,6 @@ class QueueService {
         return Future.error("Offline mode enabled but downloaded track not found.");
       } else {
         final trackUri = await _trackUri(queueItem.item);
-        print("trackUri: $trackUri");
         return AudioSource.uri(trackUri, tag: queueItem);
         // if (queueItem.item.extras!["shouldTranscode"] == true) {
         //   return HlsAudioSource(trackUri, tag: queueItem);
