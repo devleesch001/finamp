@@ -31,14 +31,12 @@ class AlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
   const AlbumScreenContentFlexibleSpaceBar({
     super.key,
     required this.parentItem,
-    required this.isPlaylist,
     required this.items,
     this.genreFilter,
     this.updateGenreFilter,
   });
 
   final BaseItemDto parentItem;
-  final bool isPlaylist;
   final List<BaseItemDto> items;
   final BaseItemDto? genreFilter;
   final void Function(BaseItemDto?)? updateGenreFilter;
@@ -47,6 +45,8 @@ class AlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
   Widget build(BuildContext context) {
     GetIt.instance<AudioServiceHelper>();
     QueueService queueService = GetIt.instance<QueueService>();
+
+    final isPlaylist = BaseItemDtoType.fromItem(parentItem) == BaseItemDtoType.playlist;
 
     void playAlbum() {
       queueService.startPlayback(

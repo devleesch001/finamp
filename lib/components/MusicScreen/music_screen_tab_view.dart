@@ -461,7 +461,6 @@ class _MusicScreenTabViewState extends ConsumerState<MusicScreenTabView>
                         : ItemCollectionWrapper(
                             key: ValueKey(item.id),
                             item: item,
-                            isPlaylist: widget.tabContentType == TabContentType.playlists,
                             genreFilter: widget.genreFilter,
                             adaptiveAdditionalInfoSortBy: sortBy,
                             showFavoriteIconOnlyWhenFilterDisabled: true,
@@ -489,7 +488,6 @@ class _MusicScreenTabViewState extends ConsumerState<MusicScreenTabView>
                   child: ItemCollectionWrapper(
                     key: ValueKey(item.id),
                     item: item,
-                    isPlaylist: widget.tabContentType == TabContentType.playlists,
                     isGrid: true,
                     genreFilter: widget.genreFilter,
                   ),
